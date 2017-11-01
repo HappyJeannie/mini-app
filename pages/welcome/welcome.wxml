@@ -1,0 +1,5 @@
+<!--pages/welcome/welcome.wxml-->
+<view>
+  <text>wekcome</text>
+  <text>test</text>
+</view>
