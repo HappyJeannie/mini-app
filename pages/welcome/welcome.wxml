@@ -1,5 +1,8 @@
 <!--pages/welcome/welcome.wxml-->
 <view>
-  <text>wekcome</text>
-  <text>test</text>
+  <image class='avatar' src='/images/avatar/1.png'></image>
+  <text class='hello'>你好,Summer</text>
+  <view>
+    <text class='start'>开启小程序</text>
+  </view>
 </view>
