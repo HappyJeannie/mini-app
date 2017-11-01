@@ -9,7 +9,7 @@
 	"compileType": "weapp",
 	"libVersion": "1.6.0",
 	"appid": "wx5ad4f41e4b2d82c3",
-	"projectname": "mini-app",
+	"projectname": "miniapp",
 	"condition": {
 		"weapp": {
 			"current": -1,
