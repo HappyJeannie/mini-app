@@ -1,8 +1,9 @@
 <!--pages/welcome/welcome.wxml-->
-<view>
+<view class='container'>
   <image class='avatar' src='/images/avatar/1.png'></image>
-  <text class='hello'>你好,Summer</text>
-  <view>
-    <text class='start'>开启小程序</text>
+  <text class='user-name'>你好,Summer</text>
+  <!-- text支持转移字符串，比如在你好中输入\n,则会显示者行 -->
+  <view class='moto-container'>
+    <text class='moto'>开启小程序</text>
   </view>
 </view>
