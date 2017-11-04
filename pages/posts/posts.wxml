@@ -1,0 +1,19 @@
+<!--pages/posts/posts.wxml-->
+<!-- 此处可以用相对路径，也可以用绝对路径 -->
+<import src="post-item/post-item-template.wxml" />
+<view>
+  <swiper indicator-dots="true" autoplay='true' interval='5000'>
+    <swiper-item>
+      <image src='/images/wx.png'></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='/images/vr.png'></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='/images/iqiyi.png'></image>
+    </swiper-item>
+  </swiper>
+  <block wx:for="{{posts_content}}">
+    <template is="postItem" data="{{...item}}"></template>
+  </block>
+</view>

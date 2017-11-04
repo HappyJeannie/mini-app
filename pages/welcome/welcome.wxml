@@ -3,7 +3,7 @@
   <image class='avatar' src='/images/avatar/1.png'></image>
   <text class='user-name'>你好,Summer</text>
   <!-- text支持转移字符串，比如在你好中输入\n,则会显示者行 -->
-  <view class='moto-container'>
+  <view class='moto-container' bindtap='onTap'>
     <text class='moto'>开启小程序</text>
   </view>
 </view>

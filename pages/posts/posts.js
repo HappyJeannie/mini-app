@@ -1,18 +1,24 @@
-// pages/welcome/welcome.js
+//此处只能用相对路径，不能使用绝对路径
+var postsData = require("../../data/posts-data.js");
+// pages/posts/posts.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
   },
+  process:function(){
 
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var posts_content = postsData.postList;
+    this.setData({
+      posts_content: posts_content
+    });
   },
 
   /**
@@ -62,13 +68,5 @@ Page({
    */
   onShareAppMessage: function () {
   
-  },
-  onTap:function(){
-    //点击跳转到列表页
-    //navigateTo是从父级页面跳转到子级页面
-    //redirectTo是同级别页面跳转
-    wx.navigateTo({
-      url: '/pages/posts/posts'
-    })
   }
 })
