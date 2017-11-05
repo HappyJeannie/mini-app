@@ -82,20 +82,43 @@ Page({
     
   },
   onCollectionTap:function(event){
+    //收藏功能实现
     // wx.getStorageSync(key);
-    var postsCollected = wx.getStorageSync("posts_collected");
-    var postCollected = postsCollected[this.data.postId];
-    postCollected = !postCollected;
-    postsCollected[this.data.postId] = postCollected;
+    //同步调用的方法
+    this.getPostsCollectedSyc();
     //更新缓存
     //wx.setStorageSync("posts_collected", postsCollected);
     //更新页面状态
     // this.setData({
     //   collected: postCollected
     // });
+    //this.showMoal(postsCollected, postCollected); 
+  },
+  getPostsCollectedAsy:function(){
+    //异步读取本地数据
+    var that = this;
+    wx.getStorage({
+      key:"posts_collected",
+      success:function(res){
+        var postsCollected = res.data;
+        var postCollected = postsCollected[that.data.postId];
+        //收藏状态取反
+        postCollected = !postCollected;
+        postsCollected[that.data.postId] = postCollected;
+        that.showMoal(postsCollected, postCollected); 
+      }
+    });
+  },
+  getPostsCollectedSyc:function(){
+    //同步读取本地数据
+    var postsCollected = wx.getStorageSync("posts_collected");
+    var postCollected = postsCollected[this.data.postId];
+    postCollected = !postCollected;
+    postsCollected[this.data.postId] = postCollected;
     this.showMoal(postsCollected, postCollected); 
   },
   onShareTap:function(event){
+    //底部弹出选项操作
     // wx.removeStorageSync(key);
     // wx.clearStorageSync();
     var itemList = [
@@ -130,6 +153,7 @@ Page({
     })
   },
   showMoal:function(postsCollected,postCollected){
+    //提示信息显示
     var that = this;
     wx.showModal({
       title: '收藏',
@@ -149,6 +173,13 @@ Page({
           });
         }
       }
+    })
+  },
+  onMusicTap:function(event){
+    //音乐播放处理
+    wx.playBackgroundAudio({
+      dataUrl: 'http://dl.stream.qqmusic.qq.com/C400001udJ173V0rrp.m4a?vkey=B57E316A818B4DB6109F5194D429D53ABA44B1CBD87C290510B7444C36A27B04AB4B30CFCB617747257C6615FFB1952287A1D10EAC68EA12&guid=5710102420&uin=0&fromtag=66',
+      title:"遗憾",     coverImgUrl:"https://y.gtimg.cn/music/photo_new/T002R300x300M000004VO2Bs2IQqN5.jpg?max_age=2592000"
     })
   }
 })
