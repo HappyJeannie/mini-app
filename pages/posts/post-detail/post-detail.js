@@ -1,4 +1,5 @@
 var postsData = require("../../../data/posts-data.js");
+var app = getApp();
 Page({
 
   /**
@@ -12,6 +13,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var globalData = app.globalData;
+    console.log(globalData);
     var postId = options.id;
     var postData = postsData.postList[postId];
     this.setData({
@@ -32,6 +35,35 @@ Page({
         collected: false
       });
     }
+    if (app.globalData.g_isPlayingMusic){
+      this.setData({
+        isPlayMusic:true
+      });
+    }else{
+      this.setData({
+        isPlayMusic: false
+      });
+    }
+    //监听音乐播放停止
+    this.setMusicMonitor();
+  },
+  setMusicMonitor:function(){
+    var that = this;
+    //以下两个都是全局监听
+    //监听音乐启动
+    wx.onBackgroundAudioPlay(function () {
+      that.setData({
+        isPlayMusic: true
+      });
+      app.globalData.g_isPlayingMusic = true;
+    });
+    //监听音乐停止
+    wx.onBackgroundAudioPause(function () {
+      that.setData({
+        isPlayMusic: false
+      });
+      app.globalData.g_isPlayingMusic = false;
+    });
   },
 
   /**
@@ -178,6 +210,7 @@ Page({
   },
   onMusicTap:function(event){
     var isPlayMusic = this.data.isPlayMusic;
+    var index = this.data.postId;
     if (isPlayMusic){
       wx.pauseBackgroundAudio();
       this.setData({
@@ -186,8 +219,9 @@ Page({
     }else{
       //音乐播放处理
       wx.playBackgroundAudio({
-        dataUrl: 'http://dl.stream.qqmusic.qq.com/C400001udJ173V0rrp.m4a?vkey=B57E316A818B4DB6109F5194D429D53ABA44B1CBD87C290510B7444C36A27B04AB4B30CFCB617747257C6615FFB1952287A1D10EAC68EA12&guid=5710102420&uin=0&fromtag=66',
-        title: "遗憾", coverImgUrl: "https://y.gtimg.cn/music/photo_new/T002R300x300M000004VO2Bs2IQqN5.jpg?max_age=2592000"
+        dataUrl: postsData.postList[index].music.url,
+        title: postsData.postList[index].music.title, 
+        coverImgUrl: postsData.postList[index].music.coverImage
       })
       this.setData({
         isPlayMusic: true
