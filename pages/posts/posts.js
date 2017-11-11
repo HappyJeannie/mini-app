@@ -74,5 +74,11 @@ Page({
     wx.navigateTo({
       url: 'post-detail/post-detail?id='+postId
     })
+  },
+  onSwierItemTap:function(event){
+    var postId = event.currentTarget.dataset.postid;
+    wx.navigateTo({
+      url: 'post-detail/post-detail?id=' + postId
+    })
   }
 })

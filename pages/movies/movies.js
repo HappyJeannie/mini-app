@@ -1,4 +1,4 @@
-// pages/welcome/welcome.js
+// pages/movies/movies.js
 Page({
 
   /**
@@ -62,14 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
   
-  },
-  onTap:function(){
-    console.log(1);
-    //点击跳转到列表页
-    //navigateTo是从父级页面跳转到子级页面
-    //redirectTo是同级别页面跳转
-    wx.switchTab({
-      url: '../posts/posts'
-    })
   }
 })
