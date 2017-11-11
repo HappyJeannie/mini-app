@@ -35,7 +35,7 @@ Page({
         collected: false
       });
     }
-    if (app.globalData.g_isPlayingMusic){
+    if (app.globalData.g_isPlayingMusic && app.global.g_currentMusicPostId == that.data.postId){
       this.setData({
         isPlayMusic:true
       });
@@ -56,6 +56,7 @@ Page({
         isPlayMusic: true
       });
       app.globalData.g_isPlayingMusic = true;
+      app.globalData.g_currentMusicPostId = that.music.postId;
     });
     //监听音乐停止
     wx.onBackgroundAudioPause(function () {
@@ -63,6 +64,7 @@ Page({
         isPlayMusic: false
       });
       app.globalData.g_isPlayingMusic = false;
+      app.globalData.g_currentMusicPostId = null;
     });
   },
 
