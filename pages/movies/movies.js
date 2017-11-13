@@ -70,6 +70,14 @@ Page({
     };
     this.setData(readyData);
   },
+  onMoreTap:function(event){
+    console.log(event);
+    var category = event.currentTarget.dataset.category;
+    //点击更多展示更多页面
+    wx.navigateTo({
+      url: '/pages/movies/more-movie/more-movie?=category' + category
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
