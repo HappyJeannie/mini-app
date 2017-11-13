@@ -14,7 +14,7 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 const api = "https://api.douban.com";
-
+//星星转换成数组
 function convertToStarsArray(stars){
   var num = stars.toString().substring(0,1);
   var array = [];
@@ -27,6 +27,28 @@ function convertToStarsArray(stars){
   }
   return array;
 };
+//封装请求更多页面的数据请求
+function getMovieListData(url, settedKey, categoryTitle) {
+  var that = this;
+  //获取数据
+  wx.request({
+    url: util.api + url,
+    method: "GET",
+    header: {
+      "content-Type": "application/xml"
+    },
+    success: function (res) {
+      console.log(res.data);
+      that.processDoubanData(res.data, settedKey, categoryTitle);
+    },
+    fail: function (res) {
+      console.log(res);
+    },
+    complete: function () {
+
+    }
+  });
+}
 
 module.exports = {
   formatTime: formatTime,

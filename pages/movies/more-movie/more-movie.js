@@ -1,3 +1,4 @@
+var util = require("../../../utils/util.js");
 // pages/movies/more-movie/more-movie.js
 Page({
 
@@ -17,6 +18,18 @@ Page({
       category: category
     });
     console.log(options);
+    var dataUrl = "";
+    switch (category){
+      case "正在热映":
+        dataUrl = "/v2/movie/in_theaters";
+        break;
+      case "即将上映":
+        dataUrl = "/v2/movie/coming_soon";
+        break;
+      case "top250":
+        dataUrl = "/v2/movie/top250";
+        break;
+    }
   },
   onReady:function(){
     var that = this;
