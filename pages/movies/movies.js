@@ -18,11 +18,11 @@ Page({
     var inTheatersUrl = "/v2/movie/in_theaters"+"?start=0&&count=3";
     var comingSoonUrl = "/v2/movie/coming_soon" + "?start=0&&count=3";
     var top250Url = "/v2/movie/top250" + "?start=0&&count=3";
-    this.getMovieListData(inTheatersUrl,"inTheaters");
-    this.getMovieListData(comingSoonUrl,"comingSoon");
-    this.getMovieListData(top250Url,"top250");
+    this.getMovieListData(inTheatersUrl,"inTheaters","正在热映");
+    this.getMovieListData(comingSoonUrl,"comingSoon","即将上映");
+    this.getMovieListData(top250Url,"top250",'top250');
   },
-  getMovieListData: function (url,settedKey) {
+  getMovieListData: function (url, settedKey, categoryTitle) {
     var that = this;
     //获取数据
     wx.request({
@@ -33,7 +33,7 @@ Page({
       },
       success: function (res) {
         console.log(res.data);
-        that.processDoubanData(res.data, settedKey);
+        that.processDoubanData(res.data, settedKey, categoryTitle);
       },
       fail: function (res) {
         console.log(res);
@@ -43,7 +43,7 @@ Page({
       }
     });
   },
-  processDoubanData: function (moviesDouban, settedKey){
+  processDoubanData: function (moviesDouban, settedKey,categoryTitle){
     //处理获取到的数据
     var movies = [];
     for (var idx in moviesDouban.subjects){
@@ -53,19 +53,20 @@ Page({
         title = title.substring(0,6)+"...";
       }
       //console.log(subject.rating.average);
-      //util.convertToStrigArray(subject.rating.average);
       var temp = {
         title :title,
         average : subject.rating.average,
         coverageUrl : subject.images.large,
-        movieId : subject.id
+        movieId : subject.id,
+        stars: util.convertToStarsArray(subject.rating.stars)
       }
       movies.push(temp);
     }
     // 以下代码为javascript动态代码编写格式
     var readyData = {};
     readyData[settedKey] = {
-      movies: movies
+      movies: movies,
+      categoryTitle: categoryTitle
     };
     this.setData(readyData);
   },

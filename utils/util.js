@@ -15,21 +15,21 @@ const formatNumber = n => {
 }
 const api = "https://api.douban.com";
 
-function convertToStrigArray(stars){
-  var num = stars.toString().tosubstrig(0,1);
-  console.log(num);
+function convertToStarsArray(stars){
+  var num = stars.toString().substring(0,1);
   var array = [];
-  for(var i = 1; i < 5; i ++){
+  for(var i = 1; i <= 5; i ++){
     if(i <= num){
       array.push(1);
     }else{
       array.push(0);
     }
   }
+  return array;
 };
 
 module.exports = {
   formatTime: formatTime,
   api : api,
-  convertToStrigArray: convertToStrigArray
+  convertToStarsArray: convertToStarsArray
 }
