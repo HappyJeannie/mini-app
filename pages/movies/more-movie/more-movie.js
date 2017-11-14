@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    movies:{},
+    navigateTitle:""
   },
 
   /**
@@ -21,15 +22,40 @@ Page({
     var dataUrl = "";
     switch (category){
       case "正在热映":
-        dataUrl = "/v2/movie/in_theaters";
+        dataUrl ="https://api.douban.com/v2/movie/in_theaters";
         break;
       case "即将上映":
-        dataUrl = "/v2/movie/coming_soon";
+        dataUrl ="https://api.douban.com/v2/movie/coming_soon";
         break;
       case "top250":
-        dataUrl = "/v2/movie/top250";
+        dataUrl ="https://api.douban.com/v2/movie/top250";
         break;
     }
+    util.http(dataUrl, this.processDoubanData)
+  },
+  processDoubanData: function (moviesDouban){
+    console.log(moviesDouban);
+    //处理获取到的数据
+    var movies = [];
+    for (var idx in moviesDouban.subjects) {
+      var subject = moviesDouban.subjects[idx];
+      var title = subject.title;
+      if (title.lenght >= 6) {
+        title = title.substring(0, 6) + "...";
+      }
+      //console.log(subject.rating.average);
+      var temp = {
+        title: title,
+        average: subject.rating.average,
+        coverageUrl: subject.images.large,
+        movieId: subject.id,
+        stars: util.convertToStarsArray(subject.rating.stars)
+      }
+      movies.push(temp);
+    }
+    this.setData({
+      movies: movies
+    });
   },
   onReady:function(){
     var that = this;

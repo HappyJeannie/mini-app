@@ -75,7 +75,7 @@ Page({
     var category = event.currentTarget.dataset.category;
     //点击更多展示更多页面
     wx.navigateTo({
-      url: '/pages/movies/more-movie/more-movie?=category' + category
+      url: '/pages/movies/more-movie/more-movie?category=' + category
     })
   },
   /**
