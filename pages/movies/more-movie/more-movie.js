@@ -7,7 +7,10 @@ Page({
    */
   data: {
     movies:{},
-    navigateTitle:""
+    navigateTitle:"",
+    totalCount:0,
+    requestUrl:"",
+    isEmpty:true
   },
 
   /**
@@ -31,7 +34,10 @@ Page({
         dataUrl ="https://api.douban.com/v2/movie/top250";
         break;
     }
-    util.http(dataUrl, this.processDoubanData)
+    util.http(dataUrl, this.processDoubanData);
+    this.setData({
+      requestUrl: dataUrl
+    });
   },
   processDoubanData: function (moviesDouban){
     console.log(moviesDouban);
@@ -53,9 +59,20 @@ Page({
       }
       movies.push(temp);
     }
+    var totalMovies ={};
+    if(!this.data.isEmpty){
+      totalMovies = this.data.movies.concat(movies);
+    }else{
+      totalMovies = movies;
+      this.setData({
+        isEmpty : false
+      });
+    }
     this.setData({
-      movies: movies
+      movies: movies,
+      totalCount: totalMovies
     });
+    var totalCount = this.data.totalCount + 20;
   },
   onReady:function(){
     var that = this;
@@ -66,5 +83,10 @@ Page({
 
       }
     })
+  },
+  onScrollLower:function(event){
+    console.log("加载更多");
+    var nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
+    util.http(nextUrl, this.processDoubanData);
   }
 })
