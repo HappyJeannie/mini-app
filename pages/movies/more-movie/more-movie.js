@@ -60,6 +60,7 @@ Page({
       movies.push(temp);
     }
     var totalMovies ={};
+    var total = this.data.totalCount + 20;
     if(!this.data.isEmpty){
       totalMovies = this.data.movies.concat(movies);
     }else{
@@ -69,8 +70,8 @@ Page({
       });
     }
     this.setData({
-      movies: movies,
-      totalCount: totalMovies
+      movies: totalMovies,
+      totalCount: total
     });
     var totalCount = this.data.totalCount + 20;
   },
