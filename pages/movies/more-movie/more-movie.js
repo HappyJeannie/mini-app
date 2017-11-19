@@ -74,6 +74,8 @@ Page({
       totalCount: total
     });
     var totalCount = this.data.totalCount + 20;
+    wx.hideNavigationBarLoading();
+    wx.stopPullDownRefresh();
   },
   onReady:function(){
     var that = this;
@@ -89,5 +91,18 @@ Page({
     console.log("加载更多");
     var nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
     util.http(nextUrl, this.processDoubanData);
+    wx.showNavigationBarLoading();
+  },
+  onPullDownRefresh:function(event){
+    console.log("上拉刷新");
+    console.log(event);
+    this.setData({
+      isEmpty:true,
+      movies:{}
+    });
+    //  下拉刷新
+    var refreshUrl = this.data.requestUrl + "?start=0&count=20";
+    util.http(refreshUrl, this.processDoubanData);
+    wx.showNavigationBarLoading();
   }
 })

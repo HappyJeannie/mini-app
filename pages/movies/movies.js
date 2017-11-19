@@ -8,7 +8,9 @@ Page({
   data: {
     inTheaters:{},
     comingSoon:{},
-    top250:{}
+    top250:{},
+    containerShow:true,
+    searchPanel:false
   },
 
   /**
@@ -78,52 +80,24 @@ Page({
       url: '/pages/movies/more-movie/more-movie?category=' + category
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  onBindFocus:function(event){
+    //输入框点击输入
+    console.log(event);
+    this.setData({
+      containerShow: false,
+      searchPanel: true
+    });
+  },
+  onbindConfirm:function(){
+    //确认输入
+  },
+  onBindBlur:function(){
 
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  onCancelImgTap:function(){
+    this.setData({
+      containerShow: true,
+      searchPanel: false
+    });
   }
 })
