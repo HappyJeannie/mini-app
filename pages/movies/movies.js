@@ -10,7 +10,8 @@ Page({
     comingSoon:{},
     top250:{},
     containerShow:true,
-    searchPanel:false
+    searchPanel:false,
+    searchResult:{}
   },
 
   /**
@@ -88,8 +89,12 @@ Page({
       searchPanel: true
     });
   },
-  onbindConfirm:function(){
+  onbindConfirm: function (event){
     //确认输入
+    console.log(event);
+    var text = event.detail.value;
+    var searchUrl = "/v2/movie/search?q="+text;
+    this.getMovieListData(searchUrl,"searchResult","");
   },
   onBindBlur:function(){
 
@@ -97,7 +102,8 @@ Page({
   onCancelImgTap:function(){
     this.setData({
       containerShow: true,
-      searchPanel: false
+      searchPanel: false,
+      searchResult:{}
     });
   }
 })
