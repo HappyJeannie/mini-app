@@ -105,5 +105,13 @@ Page({
       searchPanel: false,
       searchResult:{}
     });
+  },
+  onMovieTap:function(event){
+    console.log(event);
+    var movieId = event.currentTarget.dataset.movieid;
+    //点击跳转至详情页面
+    wx.navigateTo({
+      url: '/pages/movies/movie-detail/movie-detail?id=?' + movieId
+    })
   }
 })
