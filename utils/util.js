@@ -47,10 +47,32 @@ function http(url, callBack) {
     }
   });
 }
+//将各个演员信息用/符号连接
+function converToCastString(casts){
+  var castsjoin = "";
+  for(var idx in casts){
+    castsjoin = castsjoin + casts[idx].name + '/';
+  }
+  return castsjoin;
+}
+//整理各个演员的信息，包括人物图片,id和名字
+function convertToCastInfos(casts){
+  var castsArray = [];
+  for(var idx in casts){
+    var cast = {
+      img: casts[idx].avatars ? casts[idx].avatars.large:"",
+      name: casts[idx].name
+    }
+    castsArray.push(cast);
+  }
+  return castsArray;
+}
 
 module.exports = {
   formatTime: formatTime,
   api: api,
   convertToStarsArray: convertToStarsArray,
-  http: http
+  http: http,
+  converToCastString: converToCastString,
+  convertToCastInfos: convertToCastInfos
 }
