@@ -104,5 +104,14 @@ Page({
     var refreshUrl = this.data.requestUrl + "?start=0&count=20";
     util.http(refreshUrl, this.processDoubanData);
     wx.showNavigationBarLoading();
+  },
+  onMovieTap: function (event) {
+    console.log(event);
+    var movieId = event.currentTarget.dataset.movieid;
+    console.log(movieId);
+    //点击跳转至详情页面
+    wx.navigateTo({
+      url: '/pages/movies/movie-detail/movie-detail?id=' + movieId
+    })
   }
 })

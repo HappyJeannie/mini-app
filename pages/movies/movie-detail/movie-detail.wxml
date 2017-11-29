@@ -2,7 +2,7 @@
 <import src="../stars/stars-template.wxml"></import>
 <view class='container'>
   <image class='head-img' src='{{movie.movieImg}}' mode='aspectFill'></image>
-  <view class='head-img-hover'>
+  <view class='head-img-hover' data-src="{{movie.movieImg}}" catchtap='viewMoviePostImg'>
     <text class='main-title'>{{movie.title}}</text>
     <text class='sub-title'>{{movie.country + " · " + movie.year}}</text>
     <view class='like'>
@@ -25,9 +25,11 @@
     <view class='original-title'>
       <text>{{movie.originalTitle}}</text>
     </view>
-    <view class='flex-row'>
-      <text class='mark'>评分</text>
-      <template is="starsTemplate" data="{{stars:movies.stars,score:movie.score}}"></template>
+    <view class='flex-column'>
+      <view class='flex-row'>
+        <text class='mark'>评分</text>
+        <template is="starsTemplate" data="{{stars:movie.stars,average:movie.score}}"></template>
+      </view>
       <view class='flex-row'>
         <text class='mark'>导演</text>
         <text>{{movie.director.name}}</text>
@@ -44,14 +46,14 @@
   </view>
   <view class='hr'></view>
   <view class='synopsis'>
-    <text style='color:#999;'>剧情简介</text>
+    <text style='color:#999;margin-bottom:30rpx;'>剧情简介</text>
     <text class='summary-content'>{{movie.summary}}</text>
   </view>
   <view class='hr'></view>
   <view class='casts'>
-    <text style='color:#999;'>影人</text>
-    <scroll-view class='cast-imgs' scroll-x="true" style:"width:100%;">
-      <block wx:for="{{movies.castsInfo}}" wx:for-item="{{item}}">
+    <text style='color:#999;margin-bottom:30rpx;'>影人</text>
+    <scroll-view class='cast-imgs' scroll-x="true" style="width:100%;">
+      <block wx:for="{{movie.castsInfo}}" wx:for-item="item">
         <view class='cast-container'>
           <image class='cast-img' src='{{item.img}}'></image>
           <text class='cast-name'>{{item.name}}</text>
