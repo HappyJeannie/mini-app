@@ -22,16 +22,17 @@ Page({
       category: category
     });
     console.log(options);
+    const apiNew = "https://douban.uieee.com";
     var dataUrl = "";
     switch (category){
       case "正在热映":
-        dataUrl ="https://api.douban.com/v2/movie/in_theaters";
+        dataUrl = apiNew +"/v2/movie/in_theaters";
         break;
       case "即将上映":
-        dataUrl ="https://api.douban.com/v2/movie/coming_soon";
+        dataUrl = apiNew +"/v2/movie/coming_soon";
         break;
       case "top250":
-        dataUrl ="https://api.douban.com/v2/movie/top250";
+        dataUrl = apiNew +"/v2/movie/top250";
         break;
     }
     util.http(dataUrl, this.processDoubanData);
@@ -85,7 +86,7 @@ Page({
       success: function () {
 
       }
-    })
+    })   
   },
   onScrollLower:function(event){
     console.log("加载更多");

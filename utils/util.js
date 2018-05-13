@@ -13,7 +13,8 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
-const api = "https://api.douban.com";
+// const api = "https://api.douban.com";
+const api = "https://douban.uieee.com";
 //星星转换成数组
 function convertToStarsArray(stars) {
   var num = stars.toString().substring(0, 1);
